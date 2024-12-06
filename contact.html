@@ -436,7 +436,7 @@
     <nav class="navbar">
         <div class="logo">
             <a href="main.html">
-                <img src="\assets\images\logo.png" alt="Enzo Auto Detailing Logo">
+                <img src="/asd/assets/images/logo.png" alt="Enzo Auto Detailing Logo">
             </a>
         </div>
         
@@ -508,7 +508,7 @@
             <div class="footer-grid">
                 <div class="footer-column footer-about">
                     <div class="footer-logo">
-                        <img src="\assets\images\logo.png" alt="NYC Mobile Auto Detailing">
+                        <img src="/asd/assets/images/logo.png" alt="NYC Mobile Auto Detailing">
                     </div>
                     <p>We are driven by the highest standards of professionalism and excellence.</p>
                 </div>
@@ -689,33 +689,26 @@
         document.getElementById('SW').value = service;
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?AIzaSyDG8lTwaa09O5VKpAFFkgvNP62dRVDWEKw&libraries=places&callback=initMap" async defer></script>
-<script>
-  function initializeAutocomplete() {
-    const input = document.getElementById("Location");
-    const autocomplete = new google.maps.places.Autocomplete(input, {
-      types: ["address"],
-      componentRestrictions: { country: "us" } 
-    });
+    <script>
+       function initializeAutocomplete() {
+            const input = document.getElementById("Location");
+            const autocomplete = new google.maps.places.Autocomplete(input);
+        }
 
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      if (!place.geometry) {
-        console.warn("No details available for input:", place.name);
-        return;
-      }
-      console.log(place); 
-    });
-  }
+        function loadGoogleMapsAPI() {
+            const script = document.createElement("script");
+            script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAe8zjxYmCP6-O1EUhFDaS36KkX7jomK50&libraries=places&callback=initializeAutocomplete`;
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
 
-  window.onload = initializeAutocomplete;
-</script>
+        window.onload = loadGoogleMapsAPI;
+
+    </script>
+    <script>
 
 
-
-
-    
-  window.onload = initializeAutocomplete;
   function formatPhoneNumber(event) {
       const input = event.target;
       let value = input.value.replace(/\D/g, ""); 
@@ -861,5 +854,3 @@
 
 </body>
 </html>
-
-
