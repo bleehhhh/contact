@@ -688,25 +688,32 @@
     if (service) {
         document.getElementById('SW').value = service;
     }
+<script type=”text/javascript” src=”https://maps.googleapis.com/maps/api/js?key=PUT_YOUR_API_KEY_HERE&libraries=places“></script>
+<script>
+
+  google.maps.event.addDomListener(window, ‘load', initialize);
+
+    function initialize() {
+
+      var input = document.getElementById(‘autocomplete_search');
+
+      var autocomplete = new google.maps.places.Autocomplete(input);
+
+      autocomplete.addListener(‘place_changed', function () {
+
+      var place = autocomplete.getPlace();
+
+      // place variable will have all the information you are looking for.
+
+      $(‘#lat').val(place.geometry[‘location'].lat());
+
+      $(‘#long').val(place.geometry[‘location'].lng());
+
+    });
+
+  }
+
 </script>
-    <script>
-       function initializeAutocomplete() {
-            const input = document.getElementById("Location");
-            const autocomplete = new google.maps.places.Autocomplete(input);
-        }
-
-        function loadGoogleMapsAPI() {
-            const script = document.createElement("script");
-            script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAe8zjxYmCP6-O1EUhFDaS36KkX7jomK50&libraries=places&callback=initializeAutocomplete`;
-            script.async = true;
-            script.defer = true;
-            document.body.appendChild(script);
-        }
-
-        window.onload = loadGoogleMapsAPI;
-        
-    </script>
-
 
 </body>
 </html>
