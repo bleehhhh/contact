@@ -3,44 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Elite Auto Detailing</title>
+    <title>Enzo Auto Detailing</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        .email-autocomplete-container {
+        
+        .services-carousel-container {
     position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0 60px;
 }
 
-.email-suggestions {
+.services-carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.service-card {
+    flex: 0 0 calc(33.333% - 20px);
+    margin: 0 10px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.services-carousel-button {
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: var(--background);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-top: 4px;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-    display: none;
-}
-
-.email-suggestion {
-    padding: 10px 16px;
-    color: #7c4dff;
-    cursor: pointer;
-    border: 1px solid #7c4dff;
-    margin: 4px;
-    border-radius: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
     background-color: transparent;
-    transition: all 0.2s ease;
+    border: 2px solid #7c4dff;
+    border-radius: 50%;
+    color: #7c4dff;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
 }
 
-.email-suggestion:hover {
+.services-carousel-button:hover {
     background-color: #7c4dff;
     color: white;
 }
-        ::-webkit-scrollbar {
+
+.services-carousel-button.prev {
+    left: 0;
+}
+
+.services-carousel-button.next {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    .service-card {
+        flex: 0 0 100%;
+        margin: 0;
+    }
+
+    .services-carousel-button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .services-carousel-container {
+        padding: 0 50px;
+    }
+}
+
+.services {
+    padding: 80px 0;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.services h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+::-webkit-scrollbar {
     width: 10px;
   }
 
@@ -65,7 +111,7 @@
     scrollbar-color: #7c4dff rgba(124, 77, 255, 0.1);
   }
 
- 
+  
   body {
     -ms-overflow-style: none;
   }
@@ -74,6 +120,9 @@
     scrollbar-width: thin;
     scrollbar-color: #7c4dff rgba(124, 77, 255, 0.1);
   }
+
+
+
         ::selection {
   background-color: #7c4dff;
   color: white;
@@ -83,6 +132,8 @@
   background-color: #7c4dff;
   color: white;
 }
+
+
         .cursor-dot,
          .cursor-dot-outline {
            pointer-events: none;
@@ -113,9 +164,9 @@
             --navbar-bg: rgba(32, 32, 32, 0.8);
             --text-primary: #ffffff;
             --text-secondary: #a1a1a1;
-            --accent-purple: #8B5CF6;
+            --accent-blue: #7c4dff;
             --border-color: rgba(255, 255, 255, 0.1);
-            --input-bg: rgba(255, 255, 255, 0.05);
+            --accent-purple: #8B5CF6
         }
 
         * {
@@ -137,196 +188,394 @@
             margin: 0 auto;
         }
 
+        
         .navbar {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
-            background-color: var(--navbar-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            border: 1px solid var(--border-color);
-            padding: 12px 24px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  background-color: var(--navbar-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: rgba(32, 32, 32, 0.95);
+  backdrop-filter: blur(10px);
+  border-color: var(--border-color);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.nav-links a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-links a:not(.cta-button):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.cta-button {
+  background-color: var(--accent-purple);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #7c4dff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.mobile-menu-toggle {
+  display: none;
+}
+
+        
+        .hero {
+            background-image: url('/assets/images/13.JPG');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            background-color: rgba(32, 32, 32, 0.95);
-            backdrop-filter: blur(10px);
-            border-color: var(--border-color);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-primary);
-        }
-
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            margin: 0 auto;
-            padding: 0 48px;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .nav-links a:not(.cta-button):hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-        }
-
-        .cta-button {
-            background-color: var(--accent-purple);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.2s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #7c4dff;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
-            transform: translateY(-1px);
-        }
-
-        .contact-section {
-            padding: 120px 0 80px;
-        }
-
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .contact-form {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-        }
-
-        .contact-form h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
             position: relative;
         }
 
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 16px;
-            background-color: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-purple);
-            background-color: rgba(139, 92, 246, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .char-count {
+        .hero::before {
+            content: '';
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 12px;
-            color: var(--text-secondary);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
         }
 
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--accent-purple);
+        .hero-content {
+            position: relative;
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            max-width: 600px;
         }
 
-        .submit-btn:hover {
-            background-color: #7c4dff;
-            transform: translateY(-1px);
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
         }
 
-        .direct-contact {
-            padding: 40px;
-        }
-
-        .direct-contact h2 {
-            font-size: 2.5rem;
+        .hero p {
+            font-size: 1.2rem;
             margin-bottom: 30px;
         }
 
-        .contact-info {
-            display: grid;
-            gap: 20px;
+        
+        .services {
+            padding: 80px 0;
+            background-color: rgba(255, 255, 255, 0.02);
         }
 
-        .contact-item {
+        .services h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.service-list {
+    list-style: none;
+    margin-bottom: 20px;
+}
+.service-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+}
+.service-list li::before {
+    content: '✓';
+    color: var(--accent-purple);
+    margin-right: 10px;
+}
+
+.service-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    border-color: #7c4dff;
+    box-shadow: 0 10px 30px rgba(124, 77, 255, 0.3);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #7c4dff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.service-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.service-card h3 {
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.view-pricing-button {
+    display: block;
+    width: calc(100% - 40px);
+    padding: 14px;
+    background-color: #8c5cf4; 
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+}
+
+.view-pricing-button:hover {
+    background-color: #7c4dff;
+    transform: translateY(-2px);
+}
+
+
+
+
+        
+
+        .gallery {
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #ffffff;
+        }
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            flex: 0 0 100%;
+            max-width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(124, 77, 255, 0.8);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 10;
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 18px;
+            justify-content: center;
+        }
+        .carousel-button:hover {
+            background-color: rgba(124, 77, 255, 1);
+        }
+        .carousel-button.prev {
+            left: 10px;
+        }
+        .carousel-button.next {
+            right: 10px;
+        }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #7c4dff;
         }
 
-        .contact-item i {
-            font-size: 24px;
-            color: var(--accent-purple);
+        @media (min-width: 768px) {
+            .carousel-slide {
+                flex: 0 0 33.333%;
+                max-width: 33.333%;
+            }
+            .carousel-button {
+                width: 50px;
+                height: 50px;
+                font-size: 30px;
+            }
+            .carousel-button.prev {
+                left: 20px;
+            }
+            .carousel-button.next {
+                right: 20px;
+            }
         }
 
+
+       
+        .about {
+            padding: 80px 0;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .about h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+
+
+        .about-image {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.about-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(124, 77, 255, 0.3);
+}
+
+.about-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid #7c4dff;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.about-image:hover::before {
+    opacity: 1;
+}
+
+
+
+        
         .enhanced-footer {
             background-color: #000;
             padding: 60px 0 20px;
             margin-top: 80px;
             border-top: 1px solid var(--border-color);
         }
-
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -345,12 +594,12 @@
         }
 
         .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
 
-        .footer-links {
+.footer-links {
     list-style: none;
     padding: 0;
 }
@@ -372,12 +621,13 @@
 
 .footer-links li {
     display: flex;
-    align-items: center;
+    align-items: center; 
 }
 
 .footer-links li span {
     margin-right: 5px; 
 }
+
 
         .footer-badges {
             display: flex;
@@ -404,111 +654,284 @@
         }
 
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 16px;
-            }
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 12px 16px;
+  }
 
-            .nav-links {
-                flex-direction: column;
-                width: 100%;
-                padding: 0;
-                margin-top: 16px;
-            }
+  .logo {
+    order: 2;
+    flex-grow: 1;
+    justify-content: center;
+  }
 
-            .nav-links a {
-                width: 100%;
-                text-align: center;
-            }
+  .mobile-menu-toggle {
+    display: block;
+    order: 3;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    position: relative;
+  }
 
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
+  .mobile-menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-primary);
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+  }
 
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
+  .mobile-menu-toggle span:nth-child(1) {
+    top: 0;
+  }
+
+  .mobile-menu-toggle span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .mobile-menu-toggle span:nth-child(3) {
+    bottom: 0;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(14px) rotate(45deg);
+  }
+
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-14px) rotate(-45deg);
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    order: 4;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0 0;
+    margin-top: 16px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  .cta-button {
+    margin-top: 16px;
+  }
+
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <a href="main.html">
-                <img src="/asd/assets/images/logo.png" alt="Enzo Auto Detailing Logo">
-            </a>
+          <a href="main.html">
+            <img src="/assets/images/logo.png" alt="Enzo Auto Detailing Logo">
+          </a>
         </div>
-        
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <div class="nav-links">
-            <a href="main.html">Home</a>
-            <a href="main.html#services">Services</a>
-            <a href="main.html#gallery">Gallery</a>
-            <a href="main.html#about">About</a>
-            <a href="prices.html">Prices</a>
-            <a href="#" class="cta-button">Book Now</a>
+          <a href="main.html">Home</a>
+          <a href="main.html#services">Services</a>
+          <a href="main.html#gallery">Gallery</a>
+          <a href="main.html#about">About</a>
+          <a href="prices.html">Prices</a>
+          <a href="contact.html" class="cta-button">Book Now</a>
         </div>
-    </nav>
+      </nav>
 
-    <section class="contact-section">
-        <div class="contact-container">
-            <div class="contact-form">
-                <h2>Contact us</h2>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="Name" required>
-                    </div>
-                    <div class="form-group email-autocomplete-container">
-                        <input type="email" id="email" placeholder="Email" required>
-                        <div class="email-suggestions"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" id="phone" placeholder="Phone" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="Location" placeholder="Your Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="MMY" placeholder="Make / Model / Year" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="SW" placeholder="Service Wanted" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" placeholder="Your Message" maxlength="400" required></textarea>
-                        <div class="char-count">0/400</div>
-                    </div>
-                    <button type="submit" class="submit-btn">SEND</button>
-                </form>
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Transform Your Vehicle</h1>
+                <p>Experience premium auto detailing services that bring out the best in your car.</p>
+                <a href="contact.html" class="cta-button">Book Your Detail</a>
             </div>
-            <div class="direct-contact">
-                <h2>Direct Contact</h2>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i>📞</i>
-                        <span>808-808-8008</span>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-carousel-container">
+                <button class="services-carousel-button prev">‹</button>
+                <div class="services-carousel">
+                    <div class="service-card">
+                        <img src="\assets\images\1.JPG" alt="Interior Detailing">
+                        <div class="service-card-content">
+                            <h3>Interior Detailing</h3>
+                            <ul class="service-list">
+                                <li>VACUUM</li>
+                                <li>FLOOR MATS CLEANED</li>
+                                <li>WINDOWS WIPED</li>
+                                <li>LEATHER SEATS CLEANED</li>
+                                <li>SPOT CLEANING</li>
+                                <li>ALL PLASTIC, VINYL AND RUBBER TRIM CLEANED</li>
+                                <li>PEDALS CLEANED</li>
+                                <li>SCENT APPLIED</li>
+                            </ul>
+                            <a href="prices.html" class="view-pricing-button">View Pricing</a>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <i>✉️</i>
-                        <span>placeholder@Enzoautoservices.com</span>
+                    <div class="service-card">
+                        <img src="\assets\images\2.JPG" alt="Exterior Detailing">
+                        <div class="service-card-content">
+                            <h3>Exterior Detailing</h3>
+                            <ul class="service-list">
+                                <li>WHEELS AND TIRES CLEANED</li>
+                                <li>FENDER WELLS CLEANED</li>
+                                <li>FOAM BATH/HAND WASH</li>
+                                <li>TIRES SHINED (WATER BASED SHINE)</li>
+                                <li>INTERIOR DOOR JAMBS DRIED</li>
+                                <li>GAS COMPARTMENT CLEANED</li>
+                                <li>SPRAY SEALANT APPLIED</li>
+                            </ul>
+                            <a href="prices.html" class="view-pricing-button">View Pricing</a>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <i>📍</i>
-                        <span>Placeholder 123, FL</span>
+                    <div class="service-card">
+                        <img src="\assets\images\standard.JPG" alt="Standard Package">
+                        <div class="service-card-content">
+                            <h3>Standard Package</h3>
+                            <div class="float-child">
+                                <div class="green">
+                                    <ul class="service-list">
+                                    <li>WHEELS AND TIRES CLEANED</li><li>FENDER WELLS CLEANED</li><li>FOAM BATH/HAND WASH</li><li>TIRES SHINED (WATER BASED SHINE) </li><li>INTERIOR DOOR JAMBS DRIED</li><li>GAS COMPARTMENT CLEANED</li><li>ALL PLASTIC, VINYL AND RUBBER TRIM CLEANED</li><li>READ MORE ON PRICING PAGE</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="prices.html" class="view-pricing-button">View Pricing</a>
+                        </div>
                     </div>
+                    <div class="service-card">
+                        <img src="\assets\images\3.JPG" alt="Premium Package">
+                        <div class="service-card-content">
+                            <h3>Premium Package</h3>
+                            <div class="float-child">
+                                <div class="green">
+                                    <h4 style="color: white;">INCLUDES ALL OF STANDARD PACKAGE PLUS: </h4>
+                                    <ul class="service-list">
+                                        <li>ENGINE BAY DETAILED</li>
+                                        <li>LEATHER SEATS CONDITIONED</li>
+                                        <li>CERAMIC SOAP APPLIED (EXTRA GLOSS AND PROTECTION)</li>
+                                        <li>DEEPER INTERIOR CLEAN</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="prices.html" class="view-pricing-button">View Pricing</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <img src="\assets\images\paintncoating.JPG" alt="Paint Enhancement & Coating Package">
+                        <div class="service-card-content">
+                            <h3>Paint Enhancement & Coating Package</h3>
+                            <ul class="service-list">
+                                <li>EXTERIOR DETAIL</li><li>FULL DECON WASH</li><li>ONE STEP PAINT ENHANCEMENT</li><li>ADAM'S GRAPHENE SPRAY COATING</li>
+                            </ul>
+                            <a href="prices.html" class="view-pricing-button">View Pricing</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="services-carousel-button next">›</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2>Our Work</h2>
+            <div class="carousel-container">
+                <button class="carousel-button prev">‹</button>
+                <button class="carousel-button next">›</button>
+                <div class="carousel">
+                    <div class="carousel-slide">
+                        <img src="/assets/images/4.JPG" alt="Detailing Work 1">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/6.JPG" alt="Detailing Work 2">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/9.JPG" alt="Detailing Work 3">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/11.JPG" alt="Detailing Work 4">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/1.JPG" alt="Detailing Work 5">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/2.JPG" alt="Detailing Work 6">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/3.JPG" alt="Detailing Work 7">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/12.JPG" alt="Detailing Work 8">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/13.JPG" alt="Detailing Work 9">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/14.JPG" alt="Detailing Work 10">
+                    </div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Enzo Auto Detailing is committed to providing the highest quality car care services. With years of experience and a passion for perfection, our team of skilled professionals ensures that every vehicle receives meticulous attention to detail.</p>
+                    <p>We use only the finest products and cutting-edge techniques to restore and protect your vehicle's appearance, helping to maintain its value and your pride of ownership.</p>
+                </div>
+                <div class="about-image">
+                    <img src="\assets\images\12.JPG" alt="About Enzo Auto Detailing">
                 </div>
             </div>
         </div>
     </section>
-    
-    
 
     <footer class="enhanced-footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column footer-about">
                     <div class="footer-logo">
-                        <img src="/asd/assets/images/logo.png" alt="NYC Mobile Auto Detailing">
+                        <img src="\assets\images\logo.png" alt="NYC Mobile Auto Detailing">
                     </div>
                     <p>We are driven by the highest standards of professionalism and excellence.</p>
                 </div>
@@ -535,6 +958,7 @@
                         <li><span>✉️</span> contact@EnzoAutoServices.com</li>
                     </ul>
                 </div>
+                
             </div>
             <div class="footer-bottom">
                 <p>©Copyright 2024 | All Rights Reserved | Enzo Auto Detailing</p>
@@ -543,6 +967,36 @@
     </footer>
 
     <script>
+
+
+let currentScroll = window.scrollY;
+    let targetScroll = currentScroll;
+    let isScrolling = false;
+
+    
+    function smoothScroll() {
+        if (!isScrolling) return;
+
+        currentScroll += (targetScroll - currentScroll) * 0.1; 
+        window.scrollTo(0, currentScroll);
+
+        if (Math.abs(targetScroll - currentScroll) < 0.5) {
+            isScrolling = false;
+        } else {
+            requestAnimationFrame(smoothScroll);
+        }
+    }
+
+    
+    window.addEventListener('wheel', function (e) {
+        e.preventDefault(); 
+        targetScroll += e.deltaY; 
+        targetScroll = Math.max(0, Math.min(document.body.scrollHeight - window.innerHeight, targetScroll)); 
+        if (!isScrolling) {
+            isScrolling = true;
+            requestAnimationFrame(smoothScroll);
+        }
+    }, { passive: false });
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
@@ -552,20 +1006,102 @@
             }
         });
 
-        const messageArea = document.getElementById('message');
-        const charCount = document.querySelector('.char-count');
-
-        messageArea.addEventListener('input', function() {
-            const remaining = this.value.length;
-            charCount.textContent = `${remaining}/400`;
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
 
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Message sent successfully!');
-            this.reset();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.carousel');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevButton = document.querySelector('.carousel-button.prev');
+            const nextButton = document.querySelector('.carousel-button.next');
+            const dotsContainer = document.querySelector('.carousel-dots');
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            
+            function updateCarousel() {
+                const isMobile = window.innerWidth < 768;
+                const slidesPerView = isMobile ? 1 : 1;
+                const slideWidth = 100 / slidesPerView;
+                
+                slides.forEach((slide, index) => {
+                    slide.style.flex = `0 0 ${slideWidth}%`;
+                    slide.style.maxWidth = `${slideWidth}%`;
+                });
+                
+                const offset = -currentIndex * slideWidth;
+                carousel.style.transform = `translateX(${offset}%)`;
+                
+                updateDots();
+            }
+            
+            function createDots() {
+                dotsContainer.innerHTML = '';
+                const isMobile = window.innerWidth < 768;
+                const numberOfDots = isMobile ? totalSlides : Math.ceil(totalSlides / 1);
+                
+                for (let i = 0; i < numberOfDots; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(i * (isMobile ? 1 : 1)));
+                    dotsContainer.appendChild(dot);
+                }
+            }
+            
+            function updateDots() {
+                const dots = document.querySelectorAll('.dot');
+                const isMobile = window.innerWidth < 768;
+                const activeDotIndex = Math.floor(currentIndex / (isMobile ? 1 : 1));
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === activeDotIndex);
+                });
+            }
+            
+            function goToSlide(index) {
+                const isMobile = window.innerWidth < 768;
+                currentIndex = index;
+                if (currentIndex < 0) {
+                    currentIndex = totalSlides - (isMobile ? 1 : 1);
+                } else if (currentIndex > totalSlides - (isMobile ? 1 : 1)) {
+                    currentIndex = 0;
+                }
+                
+                updateCarousel();
+            }
+            
+            prevButton.addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+            });
+            
+            nextButton.addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+            });
+            
+            window.addEventListener('resize', () => {
+                createDots();
+                updateCarousel();
+            });
+            
+            createDots();
+            updateCarousel();
         });
+    
+    
+
+
+
     </script>
+    
     <script>
         (() => {
             const cursorDot = document.createElement('div');
@@ -645,50 +1181,62 @@
         
             updateCursor();
         })();
-        let currentScroll = window.scrollY;
-    let targetScroll = currentScroll;
-    let isScrolling = false;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.services-carousel');
+    const slides = document.querySelectorAll('.service-card');
+    const prevButton = document.querySelector('.services-carousel-button.prev');
+    const nextButton = document.querySelector('.services-carousel-button.next');
 
-    
-    function smoothScroll() {
-        if (!isScrolling) return;
+    let currentIndex = 0;
+    const totalSlides = slides.length;
 
-        currentScroll += (targetScroll - currentScroll) * 0.1; 
-        window.scrollTo(0, currentScroll);
+    function updateCarousel() {
+        const isMobile = window.innerWidth <= 768;
+        const visibleSlides = isMobile ? 1 : 3;
+        const slideWidth = slides[0].offsetWidth;
+        const offset = -currentIndex * slideWidth;
+        carousel.style.transform = `translateX(${offset}px)`;
 
-        if (Math.abs(targetScroll - currentScroll) < 0.5) {
-            isScrolling = false;
-        } else {
-            requestAnimationFrame(smoothScroll);
-        }
-    }
-
-    
-    window.addEventListener('wheel', function (e) {
-        e.preventDefault(); 
-        targetScroll += e.deltaY; 
-        targetScroll = Math.max(0, Math.min(document.body.scrollHeight - window.innerHeight, targetScroll)); 
-        if (!isScrolling) {
-            isScrolling = true;
-            requestAnimationFrame(smoothScroll);
-        }
-    }, { passive: false });
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+        slides.forEach((slide, index) => {
+            if (isMobile) {
+                slide.style.opacity = index === currentIndex ? '1' : '0.3';
             } else {
-                navbar.classList.remove('scrolled');
+                slide.style.opacity = (index >= currentIndex && index < currentIndex + visibleSlides) ? '1' : '0.3';
             }
         });
-        const urlParams = new URLSearchParams(window.location.search);
-    const service = urlParams.get('service');
-    
-    
-    if (service) {
-        document.getElementById('SW').value = service;
     }
-        
 
+    function nextSlide() {
+        const isMobile = window.innerWidth <= 768;
+        const maxIndex = isMobile ? totalSlides - 1 : totalSlides - 3;
+        currentIndex = (currentIndex + 1) % (maxIndex + 1);
+        updateCarousel();
+    }
+
+    function prevSlide() {
+        const isMobile = window.innerWidth <= 768;
+        const maxIndex = isMobile ? totalSlides - 1 : totalSlides - 3;
+        currentIndex = (currentIndex - 1 + maxIndex + 1) % (maxIndex + 1);
+        updateCarousel();
+    }
+
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
+
+    updateCarousel();
+    window.addEventListener('resize', updateCarousel);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileMenuToggle.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+});
+</script>
 </body>
 </html>
